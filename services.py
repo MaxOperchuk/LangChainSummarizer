@@ -4,10 +4,12 @@ from typing import Callable
 from fastapi import HTTPException
 
 
-def exception_handler(func: Callable):
-
+def exception_handler(func: Callable) -> Callable:
+    """
+    Handle exceptions and return an HTTP error response.
+    """
     @wraps(func)
-    def wrapper(*args, **kwargs):
+    def wrapper(*args, **kwargs) -> dict | HTTPException:
         try:
 
             return asyncio.run(func(*args, **kwargs))
